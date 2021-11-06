@@ -7,6 +7,6 @@ app = Flask(__name__)
 def parseLink():
     return 0
 
-@app.route('/pdf')
-def parsePDF():
+@app.route('/pdf/<PDF_Id>')
+def parsePDF(PDF_Id):
     return 0
