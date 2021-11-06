@@ -1,4 +1,5 @@
-import PyPDF2
+import PyPDF4
+import requests
 
 # This function is used to extract text from a PDF file.
 
@@ -7,16 +8,10 @@ def extract_text(path):
     path: a string of the path to the PDF file
     '''
     with open(path, 'rb') as f:
-        pdf = PyPDF2.PdfFileReader(f)
-        num_pages = pdf.getNumPages()
-        count = 0
+        pdf = PyPDF4.PdfFileReader(f)
         text = ""
-
-        while count < num_pages:
-            page = pdf.getPage(count)
-            count += 1
-            text += page.extractText()
-
+        for page in range(pdf.getNumPages()):
+            text += pdf.getPage(page).extractText()
     return text
 
 # This function will extract the sentances from the text with key words in them.

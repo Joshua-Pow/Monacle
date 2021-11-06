@@ -8,10 +8,11 @@ function App() {
   // App State for input method
   const [ inputMethod, setInputMethod ] = useState('Link');
   const [ URL, setURL ] = useState('');
-  const [ PDF, setPDF ] = useState(null);
+  const [ PDF, setPDF ] = useState('');
   const [ PDFPath, setPDFPath ] = useState('');
   const [ loading, setLoading ] = useState(false);
   const [ done, setDone ] = useState(false);
+  const [ summary, setSummary ] = useState('');
 
   const changeInput = (event, value) => {
     setInputMethod(value);
@@ -24,12 +25,22 @@ function App() {
       setPDF(file);
     }
     else{
-      setPDF(null);
+      setPDF('');
     }
   }
 
   const submitHandler = async (e) => {
     e.preventDefault();
+
+    if(inputMethod === 'Link' && URL === ''){
+      alert('Please enter a link');
+      return;
+    }
+
+    if(inputMethod === 'PDF' && PDF === ''){
+      alert('Please attach a PDF');
+      return;
+    }
 
     if(inputMethod === 'Link'){
       setLoading(true);
@@ -43,7 +54,8 @@ function App() {
         setLoading(true);
         const pdfPath = await uploadPDF(PDF);
         setPDFPath(pdfPath);
-        setPDF(null);
+        setPDF('');
+        // axios post
         console.log('Uploaded: ', pdfPath);
         // axios fetch get
         setLoading(false);
@@ -109,9 +121,9 @@ function App() {
       {done ? <Result/> : null}
 
       <Grid container sx={{backgroundColor: '#483434', padding: '20px'}}>
-        <Grid item xs={4}>
-          <h1 className="whiteText">What is Monocle?</h1>
-        </Grid>
+          <Grid item xs={4}>
+            <h1 className="whiteText">What is Monocle?</h1>
+          </Grid>
         <Grid item xs={8}>
           <h4 className="whiteText">
             Ever wonder what you agree to in those privacy policies you don't read? <br/>
