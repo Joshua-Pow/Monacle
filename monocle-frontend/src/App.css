@@ -21,3 +21,12 @@
 #outlined-basic{
   width: 500px;
 }
+
+#upload-button{
+  margin-left: 10px;
+}
+
+.button{
+  text-align: center;
+  margin-top: 20px;
+}
