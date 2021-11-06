@@ -1,32 +1,22 @@
-.header{
-  text-align: center;
-  font-size:x-large;
-}
-
-.url-mode{
-  text-align: center;
-}
-
-.or{
+.header {
   text-align: center;
   font-size: x-large;
-  margin-top: 30px;
 }
 
-.pdf-mode{
+.policy-input {
   text-align: center;
-  margin-top: 30px;
+  padding: 5px;
 }
 
-#outlined-basic{
+#outlined-basic {
   width: 500px;
 }
 
-#upload-button{
-  margin-left: 10px;
-}
-
-.button{
+.button {
   text-align: center;
   margin-top: 20px;
+}
+
+.whiteText {
+  color: white;
 }
