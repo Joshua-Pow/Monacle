@@ -1,15 +1,49 @@
 import React, { useState } from 'react';
 import { TextField, Input, Button, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, Container, Box, Divider, Grid } from '@mui/material';
+import { uploadPDF } from './firebase/storage';
 import './App.css';
 
 function App() {
   // App State for input method
   const [inputMethod, setInputMethod] = useState('Link');
   const [ URL, setURL ] = useState('');
-  const [ PDF, setPDF ] = useState('');
+  const [ PDF, setPDF ] = useState(null);
+  const [ PDFPath, setPDFPath ] = useState('');
 
   const changeInput = (event, value) => {
     setInputMethod(value);
+  }
+
+  const onPDFChange = async (e) => {
+    const file = e.target.files[0];
+
+    if(file){
+      setPDF(file);
+    }
+    else{
+      setPDF(null);
+    }
+  }
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
+    if(inputMethod === 'Link'){
+      console.log("URL:", URL);
+    }
+    else{
+      if(PDF){
+        const pdfPath = await uploadPDF(PDF);
+        setPDFPath(pdfPath);
+        setPDF(null);
+        console.log('Uploaded: ', pdfPath);
+        return;
+      }
+      else{
+        alert('Please choose a PDF');
+        return;
+      }
+    }
   }
 
   return (
@@ -43,13 +77,13 @@ function App() {
             />
             :
             <label htmlFor="contained-button-file">
-              <Input accept="image/*" id="contained-button-file" multiple type="file" onChange={(e) => console.log(e.target.value)}/>
+              <Input accept="image/*" id="contained-button-file" multiple type="file" onChange={onPDFChange}/>
             </label>
           }
 
         </div>
         <div className="button">
-          <Button size="large" variant="contained" onClick={() => console.log('clicked')}>
+          <Button size="large" variant="contained" onClick={submitHandler}>
             Go
           </Button>
         </div>
