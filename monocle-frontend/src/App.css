@@ -3,9 +3,13 @@
   font-size: x-large;
 }
 
+.input {
+  min-height: 4rem;
+}
+
 .policy-input {
   text-align: center;
-  padding: 5px;
+  padding: 20px 0px;
 }
 
 #outlined-basic {
