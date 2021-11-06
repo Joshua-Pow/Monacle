@@ -2,13 +2,14 @@ from flask.json import jsonify
 import requests
 from flask import Flask, request
 from Helpers.PDFParser import extract_text
+from Helpers.linkParser import getText
 import PyPDF4
 
 app = Flask(__name__)
 
 @app.route('/link')
-def parseLink():
-    return 0
+def parseLink(link):
+    text = getText(link)
 
 @app.route('/pdf/<PDFUrl>')
 def parsePDF(PDFUrl):

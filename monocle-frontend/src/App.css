@@ -3,9 +3,15 @@
   font-size: x-large;
 }
 
+.input {
+  min-height: 4rem;
+}
+
 .policy-input {
   text-align: center;
+  padding: 20px 0px;
   padding: 5px;
+  height: 200px;
 }
 
 #outlined-basic {
@@ -19,4 +25,12 @@
 
 .whiteText {
   color: white;
+}
+
+.progress {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
