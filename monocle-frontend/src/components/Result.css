@@ -1,0 +1,11 @@
+.result {
+    width: 60%;
+    font-size: large;
+    word-wrap: break-word;
+    margin: auto;
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    margin-bottom: 20px;
+    padding: 6px;
+}

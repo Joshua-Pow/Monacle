@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import { TextField, Input, Button, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, Container, Box, Divider, Grid } from '@mui/material';
+import { TextField, Input, Button, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, CircularProgress, Container, Box, Divider, Grid } from '@mui/material';
 import { uploadPDF } from './firebase/storage';
+import Result from './components/Result';
 import './App.css';
 
 function App() {
   // App State for input method
-  const [inputMethod, setInputMethod] = useState('Link');
+  const [ inputMethod, setInputMethod ] = useState('Link');
   const [ URL, setURL ] = useState('');
   const [ PDF, setPDF ] = useState(null);
   const [ PDFPath, setPDFPath ] = useState('');
+  const [ loading, setLoading ] = useState(false);
+  const [ done, setDone ] = useState(false);
 
   const changeInput = (event, value) => {
     setInputMethod(value);
@@ -29,14 +32,22 @@ function App() {
     e.preventDefault();
 
     if(inputMethod === 'Link'){
+      setLoading(true);
       console.log("URL:", URL);
+      // axios fetch get
+      setLoading(false);
+      setDone(false);
     }
     else{
       if(PDF){
+        setLoading(true);
         const pdfPath = await uploadPDF(PDF);
         setPDFPath(pdfPath);
         setPDF(null);
         console.log('Uploaded: ', pdfPath);
+        // axios fetch get
+        setLoading(false);
+        setDone(false);
         return;
       }
       else{
@@ -53,41 +64,53 @@ function App() {
         <h1>Monocle: Privacy Policies Simplied</h1>
       </div>
 
-      <div className="policy-input">
-        <FormControl component="fieldset">
-          <FormLabel component="legend">Provide a Link or PDF</FormLabel>
-          <RadioGroup 
-            row aria-label="input-select" 
-            name="row-radio-buttons-group" 
-            value={inputMethod}
-            onChange={changeInput}
-          >
-            <FormControlLabel value="Link" control={<Radio />} label="Link" />
-            <FormControlLabel value="PDF" control={<Radio />} label="PDF" />
-          </RadioGroup>
-        </FormControl>
-        <div className="input">
-          {inputMethod === 'Link' ?
-            <TextField 
-              id="outlined-basic" 
-              label="Link" 
-              variant="outlined" 
-              placeholder="Enter a Link"
-              onChange={(e) => setURL(e.target.value)}
-            />
-            :
-            <label htmlFor="contained-button-file">
-              <Input accept="image/*" id="contained-button-file" multiple type="file" onChange={onPDFChange}/>
-            </label>
-          }
+      {loading ? 
+        <div className="progress">
+          <CircularProgress />
+        </div>
+      :
+        (done ? 
+          <Result />
+        :
+          <div className="policy-input">
+            <FormControl component="fieldset">
+              <FormLabel component="legend">Provide a Link or PDF</FormLabel>
+              <RadioGroup 
+                row aria-label="input-select" 
+                name="row-radio-buttons-group" 
+                value={inputMethod}
+                onChange={changeInput}
+              >
+                <FormControlLabel value="Link" control={<Radio />} label="Link" />
+                <FormControlLabel value="PDF" control={<Radio />} label="PDF" />
+              </RadioGroup>
+            </FormControl>
+            <div>
+              {inputMethod === 'Link' ?
+                <TextField 
+                  id="outlined-basic" 
+                  label="Link" 
+                  variant="outlined" 
+                  placeholder="Enter a Link"
+                  onChange={(e) => setURL(e.target.value)}
+                />
+                :
+                <label htmlFor="contained-button-file">
+                  <Input accept="image/*" id="contained-button-file" multiple type="file" onChange={onPDFChange}/>
+                </label>
+              }
 
-        </div>
-        <div className="button">
-          <Button size="large" variant="contained" color="primary" onClick={submitHandler}>
-            Go
-          </Button>
-        </div>
-      </div>
+            </div>
+            <div className="button">
+              <Button size="large" variant="contained" onClick={submitHandler}>
+                Go
+              </Button>
+            </div>
+          </div>
+        )
+      }
+
+      
 
         <Grid container sx={{backgroundColor: '#483434', padding: '20px'}}>
           <Grid item xs={4}>
