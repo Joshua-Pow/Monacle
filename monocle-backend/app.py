@@ -1,10 +1,9 @@
-import requests
 from flask import Flask
 
 app = Flask(__name__)
 
 @app.route('/link')
-def parseLink():
+def parseLink(link):
     return 0
 
 @app.route('/pdf/<PDF_Id>')
