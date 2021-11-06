@@ -36,7 +36,7 @@ function App() {
       console.log("URL:", URL);
       // axios fetch get
       setLoading(false);
-      setDone(false);
+      setDone(true);
     }
     else{
       if(PDF){
