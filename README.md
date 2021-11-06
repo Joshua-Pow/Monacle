@@ -1,0 +1,1 @@
+Read privacy policys
