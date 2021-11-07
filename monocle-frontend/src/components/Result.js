@@ -4,7 +4,9 @@ import React from 'react';
 import './Result.css';
 
 export default function Result({ results }) {
-  const testList = ['Name', 'Credit Card', 'Payment Method', 'Location', 'Age', 'Address', 'address', 'Picture', 'School', 'Website', 'Cookie', 'IP', 'Payment Information', 'Financial Data'];
+  const testList = ['Name', 'Credit Card', 'Payment Method', 'Location', 'Age', 'Address', 'Picture', 'School', 'Website', 'Cookies', 'IP', 'Payment Information', 'Financial Data', 'Log', 'Content', 'Face recognition', 'Contact Info',
+  'Processing', 'Verification', 'Marketing', 'Analytics', 'Personalization', 'Recommendations', 'Legal Compliance', 'Advertising', 'Ads', 'Advertisment', 'Third Party Advertisers', 'Cloud Computing', 'Warrant', 'Government',
+  'Access', 'Correction', 'Deletion', 'Withdraw Consent'];
 
   //create a function to see if the word is in the testList array ignoring case and removing punctuation
   const isInList = (word) => {

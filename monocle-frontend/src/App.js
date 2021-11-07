@@ -34,6 +34,7 @@ function App() {
   const linkHandler = async () => {
     setLoading(true);
     const result = await parseLink(URL);
+    console.log(result);
     setResults(result);
     setLoading(false);
     setDone(true);
