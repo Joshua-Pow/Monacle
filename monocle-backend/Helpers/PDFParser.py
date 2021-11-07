@@ -14,17 +14,17 @@ def extract_text(path):
             text += pdf.getPage(page).extractText()
     return text
 
-# This function will extract the sentances from the text with key words in them.
+# This function will extract the sentences from the text with key words in them.
 
-def extract_sentances(text, keywords):
+def extract_sentences(text, keywords):
     '''
     keywords: a list of strings
     text: a long string
     '''
-    sentances = text.split(".")
+    sentences = text.split(".")
     result = []
-    for sentance in sentances:
+    for sentences in sentences:
         for keyword in keywords:
-            if keyword in sentance:
-                result.append(sentance)
+            if keyword in sentences:
+                result.append(sentences)
     return result
