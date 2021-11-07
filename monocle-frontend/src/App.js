@@ -43,8 +43,8 @@ function App() {
   const linkHandler = async () => {
     setLoading(true);
     const result = await parseLink(URL);
-    console.log(result);
-    setDataCollected(result[0]);
+    // console.log(result["Data Collected"]);
+    setDataCollected(result["Data Collected"]);
     // setPurposeOfData(result.drinks[0].strInstructionsDE);
     // setHighlights(result.drinks[0].strInstructionsIT);
     setLoading(false);
