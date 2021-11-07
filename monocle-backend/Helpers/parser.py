@@ -2,7 +2,7 @@ from fuzzywuzzy import process
 
 dataKeywords = ['Name', 'Credit Card', 'Payment Method', 'Location', 'Age', 'Address', 'Picture', 'School', 'Website', 'Cookie', 'IP', 'Payment Information', 'Financial Data']
 
-def parse(text):
+def dataCollected(text):
     doc = []
     results = []
 

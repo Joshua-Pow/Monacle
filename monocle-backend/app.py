@@ -4,7 +4,7 @@ from flask import Flask, request
 from flask_cors import CORS
 from Helpers.PDFParser import extract_text
 from Helpers.linkParser import getText
-from Helpers.parser import parse
+from Helpers.parser import dataCollected
 
 app = Flask(__name__)
 CORS(app)
@@ -22,7 +22,7 @@ def parseLink():
     data = []
 
     text = getText(linkUrl)
-    collected = parse(text)
+    collected = dataCollected(text)
 
     data.append(collected)
 
