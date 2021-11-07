@@ -16,4 +16,8 @@ def getText(link):
     chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
     text = '\n'.join(chunk for chunk in chunks if chunk)
 
+    # print(text)
+
     return text
+
+getText('https://discord.com/privacy')

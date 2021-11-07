@@ -3,6 +3,7 @@ import requests
 from flask import Flask, request
 from Helpers.PDFParser import extract_text
 from Helpers.linkParser import getText
+from Helpers.parser import parse
 
 app = Flask(__name__)
 
@@ -15,10 +16,15 @@ def parseLink():
     '''
     request_data = request.get_json()
     linkUrl = request_data['url'] 
-    #LinkUrl = request.args.get('LinkUrl')
-    #print("url is: " + request.args.get("LinkUrl"))
-    #text = getText(LinkUrl)
-    return linkUrl
+
+    data = []
+
+    text = getText(linkUrl)
+    collected = parse(text)
+
+    data.append(collected)
+
+    return jsonify(data)
 
 @app.route('/pdf')
 def parsePDF():
@@ -38,3 +44,4 @@ def parsePDF():
     else:
         return "ERROR: Response " + str(r.status_code)
     
+parseLink('https://discord.com/privacy')
