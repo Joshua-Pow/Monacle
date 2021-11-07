@@ -21,11 +21,12 @@ def dataCollected(text):
 
 # This function will extract the sentences from the text with key words in them.
 
-def extract_sentences(text, keywords):
+def highlights(text, keywords):
     '''
     keywords: a list of strings
     text: a long string
     '''
+    keywords = dataKeywords
     sentences = text.split(".")
     result = []
     for sentences in sentences:
