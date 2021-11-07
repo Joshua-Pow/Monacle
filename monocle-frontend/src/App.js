@@ -45,8 +45,9 @@ function App() {
     const result = await parseLink(URL);
     // console.log(result["Data Collected"]);
     setDataCollected(result["Data Collected"]);
+    console.log(result["Highlights"]);
     // setPurposeOfData(result.drinks[0].strInstructionsDE);
-    // setHighlights(result.drinks[0].strInstructionsIT);
+    setHighlights(result["Highlights"]);
     setLoading(false);
     setDone(true);
   }

@@ -4,7 +4,7 @@ import React from 'react';
 import './Result.css';
 
 export default function Result({ dataCollected, purposeOfData, highlights }) {
-  const testList = ['Name', 'Address', 'Payment']
+  const testList = ['Name', 'Address', 'Payment'];
 
   return (
       <Container sx={{marginBottom: '50px'}}>
@@ -33,11 +33,10 @@ export default function Result({ dataCollected, purposeOfData, highlights }) {
         <h2>Privacy Policy Highlights</h2>
         <p>More detailed snippets of the policy we believe are important.</p>
         <Card sx={{padding: '10px'}}>
-          <List>
-            <ListItemText primary="Some Sentence we highlight"/>
-            <ListItemText primary="Some Sentence we highlight2"/>
-            <ListItemText primary="Some Sentence we highlight3"/>
-            <ListItemText primary="Some Sentence we highlight4"/>
+          <List className="highlights">
+            {highlights.map((highlight, index) => (
+              <ListItemText key={index}>{highlight}</ListItemText>
+            ))}
           </List>
         </Card>
 

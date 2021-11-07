@@ -42,10 +42,13 @@ def parsePDF():
     param url: Firebase URL of the PDF file to be parsed
     Example: {"url": "http://www.africau.edu/images/default/sample.pdf"}
     '''
+    data = {}
     pdfUrl = request.headers.get('url')
     r = requests.get(pdfUrl, stream=True)
     if r.status_code == 200:
         text = extract_text("temp.pdf")
-        return jsonify(text)
+        data['Data Collected'] = dataCollected(text)
+        data['Highlights'] = highlights(text, [])
+        return jsonify(data)
     else:
         return "ERROR: Response " + str(r.status_code)
