@@ -19,3 +19,18 @@ def parse(text):
 
     return results
 
+# This function will extract the sentences from the text with key words in them.
+
+def extract_sentences(text, keywords):
+    '''
+    keywords: a list of strings
+    text: a long string
+    '''
+    sentences = text.split(".")
+    result = []
+    for sentences in sentences:
+        for keyword in keywords:
+            #ignore case
+            if keyword.lower() in sentences.lower():
+                result.append(sentences)
+    return result
