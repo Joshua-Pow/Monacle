@@ -2,11 +2,13 @@ import React from 'react';
 //import { TextField } from '@mui/material';
 import './Result.css';
 
-export default function Result() {
+export default function Result({ dataCollected, purposeOfData, highlights }) {
+    // loop through strings
     return (
         <div className="result">
-        <h1>Monocle Results</h1>
-            ResultResultResultResultResultResultResultResultResultResultResultResultResultResultResultResultResultResultResultResultResultResultResultResultResultResultResultResultResultResultResultResultResultResultResultResultResultResultResult
+            {dataCollected}
+            {purposeOfData}
+            {highlights}
         </div>
     )
 }

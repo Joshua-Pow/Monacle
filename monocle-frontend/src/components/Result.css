@@ -8,4 +8,6 @@
     border-color: black;
     margin-bottom: 20px;
     padding: 6px;
+    height: 200px;
+    overflow: scroll;
 }

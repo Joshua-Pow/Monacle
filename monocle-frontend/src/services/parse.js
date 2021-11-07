@@ -1,15 +1,25 @@
-import axios from 'axios'
+import axios from 'axios';
 
 const baseURL = '/api/'
 
-
-const parseLink = async (link, keywords) => {
+export const parseLink = async (link) => {
     // Call api with link
-
+    try{
+        const response = await axios.get(link);
+        return response.data;
+    }
+    catch (err){
+        console.log(err);
+    }
 }
 
-const parsePDF = async (PDF, keywords) => {
+export const parsePDF = async (pdf) => {
     // Call api with pdf
+    try{
+        const response = await axios.get(pdf);
+        return response.data;
+    }
+    catch (err){
+        console.log(err);
+    }
 }
-
-export default { parseLink, parsePDF };

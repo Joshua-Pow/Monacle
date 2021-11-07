@@ -1,8 +1,17 @@
 import React, { useState } from 'react';
-import { TextField, Input, Button, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, CircularProgress, Container, Box, Divider, Grid } from '@mui/material';
+import { TextField, Input, Button, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, CircularProgress, Container, Box, Divider, Grid, formControlClasses } from '@mui/material';
 import { uploadPDF } from './firebase/storage';
+import { parseLink, parsePDF } from './services/parse';
 import Result from './components/Result';
 import './App.css';
+
+const dummyData = {
+  dataCollected: ["name", "phone number", "address", "location"],
+  purposeOfData: ["improvement in customer service", "speed"],
+  highlights: ["Lorem ipsum dolor sit amet", "consectetur adipiscing elit", "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"]
+}
+
+const tempURL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita';
 
 function App() {
   // App State for input method
@@ -12,7 +21,9 @@ function App() {
   const [ PDFPath, setPDFPath ] = useState('');
   const [ loading, setLoading ] = useState(false);
   const [ done, setDone ] = useState(false);
-  const [ summary, setSummary ] = useState('');
+  const [ dataCollected, setDataCollected ] = useState('');
+  const [ purposeOfData, setPurposeOfData ] = useState('');
+  const [ highlights, setHighlights ] = useState('');
 
   const changeInput = (event, value) => {
     setInputMethod(value);
@@ -29,6 +40,32 @@ function App() {
     }
   }
 
+  const linkHandler = async () => {
+    setLoading(true);
+    // axios fetch get
+    const result = await parseLink(tempURL);
+    setDataCollected(result.drinks[0].strInstructions);
+    setPurposeOfData(result.drinks[0].strInstructionsDE);
+    setHighlights(result.drinks[0].strInstructionsIT);
+    setLoading(false);
+    setDone(true);
+  }
+
+  const pdfHandler = async () => {
+    setLoading(true);
+    const pdfPath = await uploadPDF(PDF);
+    setPDFPath(pdfPath);
+    setPDF('');
+    console.log('Uploaded: ', pdfPath);
+    // axios fetch get
+    const result = await parsePDF(tempURL);
+    setDataCollected(result.drinks[0].strInstructions);
+    setPurposeOfData(result.drinks[0].strInstructionsDE);
+    setHighlights(result.drinks[0].strInstructionsIT);
+    setLoading(false);
+    setDone(true);
+  }
+
   const submitHandler = async (e) => {
     e.preventDefault();
 
@@ -43,24 +80,11 @@ function App() {
     }
 
     if(inputMethod === 'Link'){
-      setLoading(true);
-      console.log("URL:", URL);
-      // axios fetch get
-      setLoading(false);
-      setDone(true);
+      linkHandler();
     }
     else{
       if(PDF){
-        setLoading(true);
-        const pdfPath = await uploadPDF(PDF);
-        setPDFPath(pdfPath);
-        setPDF('');
-        // axios post
-        console.log('Uploaded: ', pdfPath);
-        // axios fetch get
-        setLoading(false);
-        setDone(false);
-        return;
+        pdfHandler();
       }
       else{
         alert('Please choose a PDF');
@@ -118,7 +142,7 @@ function App() {
         </div>
       }
 
-      {done ? <Result/> : null}
+      {done ? <Result dataCollected={dataCollected} purposeOfData={purposeOfData} highlights={highlights} /> : null}
 
       <Grid container sx={{backgroundColor: '#483434', padding: '20px'}}>
           <Grid item xs={4}>
