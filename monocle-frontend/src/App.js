@@ -43,10 +43,11 @@ function App() {
   const linkHandler = async () => {
     setLoading(true);
     // axios fetch get
-    const result = await parseLink(tempURL);
-    setDataCollected(result.drinks[0].strInstructions);
-    setPurposeOfData(result.drinks[0].strInstructionsDE);
-    setHighlights(result.drinks[0].strInstructionsIT);
+    const result = await parseLink(URL);
+    console.log(result);
+    // setDataCollected(result.drinks[0].strInstructions);
+    // setPurposeOfData(result.drinks[0].strInstructionsDE);
+    // setHighlights(result.drinks[0].strInstructionsIT);
     setLoading(false);
     setDone(true);
   }
@@ -58,10 +59,10 @@ function App() {
     setPDF('');
     console.log('Uploaded: ', pdfPath);
     // axios fetch get
-    const result = await parsePDF(tempURL);
-    setDataCollected(result.drinks[0].strInstructions);
-    setPurposeOfData(result.drinks[0].strInstructionsDE);
-    setHighlights(result.drinks[0].strInstructionsIT);
+    const result = await parsePDF(pdfPath);
+    // setDataCollected(result.drinks[0].strInstructions);
+    // setPurposeOfData(result.drinks[0].strInstructionsDE);
+    // setHighlights(result.drinks[0].strInstructionsIT);
     setLoading(false);
     setDone(true);
   }

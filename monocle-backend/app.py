@@ -1,11 +1,13 @@
 from flask.json import jsonify
 import requests
 from flask import Flask, request
+from flask_cors import CORS
 from Helpers.PDFParser import extract_text
 from Helpers.linkParser import getText
 from Helpers.parser import parse
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/link')
 def parseLink():
@@ -14,8 +16,7 @@ def parseLink():
     param url: url to be parsed
     Example: {"url": "https://www.apple.com/legal/privacy/en-ww/"}
     '''
-    request_data = request.get_json()
-    linkUrl = request_data['url'] 
+    linkUrl = request.headers.get('url')
 
     data = []
 
@@ -33,8 +34,7 @@ def parsePDF():
     param url: Firebase URL of the PDF file to be parsed
     Example: {"url": "http://www.africau.edu/images/default/sample.pdf"}
     '''
-    request_data = request.get_json()
-    pdfUrl = request_data['url']
+    pdfUrl = request.headers.get('url')
     #PDFUrl = "https://firebasestorage.googleapis.com/v0/b/monocle-552fc.appspot.com/o/" + PDFUrl + "?alt=" + request.args.get("alt") + "&token=" + request.args.get("token")
     #PDFUrl = "http://www.africau.edu/images/default/sample.pdf"
     r = requests.get(pdfUrl, stream=True)
