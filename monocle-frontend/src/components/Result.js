@@ -14,7 +14,7 @@ export default function Result({ dataCollected, purposeOfData, highlights }) {
         <p>A general overview of key points of the privacy policy.</p>
         <Grid container spacing={2} sx={{margin: '20px'}}>
           <Grid item xs={6}>
-            <InfoCard title="Data Collected" itemList={testList}/>
+            <InfoCard title="Data Collected" itemList={dataCollected}/>
           </Grid>
           <Grid item xs={6}>
             <InfoCard title="How Data is used" itemList={testList}/>

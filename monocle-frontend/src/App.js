@@ -42,10 +42,9 @@ function App() {
 
   const linkHandler = async () => {
     setLoading(true);
-    // axios fetch get
     const result = await parseLink(URL);
-    console.log(result);
-    // setDataCollected(result.drinks[0].strInstructions);
+    // console.log(result[0]);
+    setDataCollected(result[0]);
     // setPurposeOfData(result.drinks[0].strInstructionsDE);
     // setHighlights(result.drinks[0].strInstructionsIT);
     setLoading(false);
@@ -63,6 +62,7 @@ function App() {
     // setDataCollected(result.drinks[0].strInstructions);
     // setPurposeOfData(result.drinks[0].strInstructionsDE);
     // setHighlights(result.drinks[0].strInstructionsIT);
+    console.log(result);
     setLoading(false);
     setDone(true);
   }
