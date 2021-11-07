@@ -44,4 +44,3 @@ def parsePDF():
         return jsonify(text)
     else:
         return "ERROR: Response " + str(r.status_code)
-    

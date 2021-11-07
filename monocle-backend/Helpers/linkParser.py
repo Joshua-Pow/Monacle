@@ -19,5 +19,3 @@ def getText(link):
     # print(text)
 
     return text
-
-getText('https://discord.com/privacy')
