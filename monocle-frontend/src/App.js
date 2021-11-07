@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, Input, Button, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, CircularProgress, Container, Box, Divider, Grid, formControlClasses } from '@mui/material';
+import { TextField, Input, Button, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, CircularProgress, Grid} from '@mui/material';
 import { uploadPDF } from './firebase/storage';
 import { parseLink, parsePDF } from './services/parse';
 import Result from './components/Result';
@@ -10,8 +10,6 @@ const dummyData = {
   purposeOfData: ["improvement in customer service", "speed"],
   highlights: ["Lorem ipsum dolor sit amet", "consectetur adipiscing elit", "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"]
 }
-
-const tempURL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita';
 
 function App() {
   // App State for input method
@@ -98,7 +96,7 @@ function App() {
     <div>
       <div className="header">
         <img src="/MonocleLogo.png" height="200" width="200"/>
-        <h1>Monocle: Privacy Policies Simplied</h1>
+        <h1>Monocle: Privacy Policies Simplified</h1>
       </div>
 
       {loading ? 
