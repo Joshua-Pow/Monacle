@@ -25,6 +25,7 @@ def extract_sentences(text, keywords):
     result = []
     for sentences in sentences:
         for keyword in keywords:
-            if keyword in sentences:
+            #ignore case
+            if keyword.lower() in sentences.lower():
                 result.append(sentences)
     return result

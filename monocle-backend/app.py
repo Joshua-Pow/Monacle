@@ -8,6 +8,7 @@ from Helpers.parser import parse
 
 app = Flask(__name__)
 CORS(app)
+app.config["DEBUG"] = True
 
 @app.route('/link')
 def parseLink():
@@ -44,4 +45,3 @@ def parsePDF():
     else:
         return "ERROR: Response " + str(r.status_code)
     
-parseLink('https://discord.com/privacy')
