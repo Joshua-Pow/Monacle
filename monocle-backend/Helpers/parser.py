@@ -1,8 +1,6 @@
 from fuzzywuzzy import process
 
-dataKeywords = ['Name', 'Credit Card', 'Payment Method', 'Location', 'Age', 'Address', 'Picture', 'School', 'Website', 'Cookie', 'IP', 'Payment Information', 'Financial Data']
-
-def dataCollected(text):
+def keywordSearch(text, keywords):
     doc = []
     results = []
 
@@ -10,7 +8,7 @@ def dataCollected(text):
         doc.append(word)
 
     for word in doc:
-        closest = process.extractOne(word, dataKeywords)
+        closest = process.extractOne(word, keywords)
 
         if closest[1] >= 90:
             results.append(closest[0])
@@ -26,7 +24,6 @@ def highlights(text, keywords):
     keywords: a list of strings
     text: a long string
     '''
-    keywords = dataKeywords
     sentences = text.split(".")
     result = []
 

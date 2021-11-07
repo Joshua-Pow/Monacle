@@ -4,12 +4,21 @@ from flask import Flask, request
 from flask_cors import CORS
 from Helpers.PDFParser import extract_text
 from Helpers.linkParser import getText
-from Helpers.parser import dataCollected, highlights
+from Helpers.parser import keywordSearch, highlights
 
 
 app = Flask(__name__)
 CORS(app)
 app.config["DEBUG"] = True
+
+import ssl
+
+ssl._create_default_https_context = ssl._create_unverified_context
+
+dataCollectedKey = ['Name', 'Credit Card', 'Payment Method', 'Location', 'Age', 'Address', 'Picture', 'School', 'Website', 'Cookies', 'IP', 'Payment Information', 'Financial Data', 'Log', 'Content', 'Face recognition', 'Contact Info']
+useKey = ['Processing', 'Verification', 'Marketing', 'Analytics', 'Personalization', 'Recommendations', 'Legal Compliance', 'Advertising', 'Ads', 'Advertisment']
+disclosureKey = ['Third Party Advertisers', 'Cloud Computing', 'Warrant', 'Government']
+dataRightsKey = ['Access', 'Correction', 'Deletion', 'Withdraw Consent']
 
 @app.route('/link')
 def parseLink():
@@ -21,7 +30,7 @@ def parseLink():
               "How Data is used": ~~~,
               "Data retention": ~~~,
               "Data discolsure": ~~~,
-              "Data acess": ~~~,
+              "Data access": ~~~,
               "Data highlights: Sentences that have important keywords"}
               }
     '''
@@ -31,7 +40,10 @@ def parseLink():
 
     text = getText(linkUrl)
 
-    data['Data Collected'] = dataCollected(text)
+    data['Data Collected'] = keywordSearch(text, dataCollectedKey)
+    data['Data Used'] = keywordSearch(text, useKey)
+    data['Disclosure'] = keywordSearch(text, disclosureKey)
+    data['Data Rights'] = keywordSearch(text, dataRightsKey)
     data['Highlights'] = highlights(text, [])
     return jsonify(data)
 
@@ -47,7 +59,10 @@ def parsePDF():
     r = requests.get(pdfUrl, stream=True)
     if r.status_code == 200:
         text = extract_text("temp.pdf")
-        data['Data Collected'] = dataCollected(text)
+        data['Data Collected'] = keywordSearch(text)
+        data['Data Used'] = keywordSearch(text, useKey)
+        data['Disclosure'] = keywordSearch(text, disclosureKey)
+        data['Data Rights'] = keywordSearch(text, dataRightsKey)
         data['Highlights'] = highlights(text, [])
         return jsonify(data)
     else:

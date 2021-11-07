@@ -5,12 +5,6 @@ import { parseLink, parsePDF } from './services/parse';
 import Result from './components/Result';
 import './App.css';
 
-const dummyData = {
-  dataCollected: ["name", "phone number", "address", "location"],
-  purposeOfData: ["improvement in customer service", "speed"],
-  highlights: ["Lorem ipsum dolor sit amet", "consectetur adipiscing elit", "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"]
-}
-
 function App() {
   // App State for input method
   const [ inputMethod, setInputMethod ] = useState('Link');
@@ -19,8 +13,7 @@ function App() {
   const [ PDFPath, setPDFPath ] = useState('');
   const [ loading, setLoading ] = useState(false);
   const [ done, setDone ] = useState(false);
-  const [ dataCollected, setDataCollected ] = useState('');
-  const [ purposeOfData, setPurposeOfData ] = useState('');
+  const [ results, setResults ] = useState({});
   const [ highlights, setHighlights ] = useState('');
 
   const changeInput = (event, value) => {
@@ -41,11 +34,7 @@ function App() {
   const linkHandler = async () => {
     setLoading(true);
     const result = await parseLink(URL);
-    // console.log(result["Data Collected"]);
-    setDataCollected(result["Data Collected"]);
-    console.log(result["Highlights"]);
-    // setPurposeOfData(result.drinks[0].strInstructionsDE);
-    setHighlights(result["Highlights"]);
+    setResults(result);
     setLoading(false);
     setDone(true);
   }
@@ -58,9 +47,6 @@ function App() {
     console.log('Uploaded: ', pdfPath);
     // axios fetch get
     const result = await parsePDF(pdfPath);
-    // setDataCollected(result.drinks[0].strInstructions);
-    // setPurposeOfData(result.drinks[0].strInstructionsDE);
-    // setHighlights(result.drinks[0].strInstructionsIT);
     console.log(result);
     setLoading(false);
     setDone(true);
@@ -102,6 +88,7 @@ function App() {
 
       {loading ? 
         <div className="progress">
+          <h3>Parsing privacy policy</h3>
           <CircularProgress />
         </div>
       :
@@ -142,7 +129,7 @@ function App() {
         </div>
       }
 
-      {done ? <Result dataCollected={dataCollected} purposeOfData={purposeOfData} highlights={highlights} /> : null}
+      {done ? <Result results={results} /> : null}
 
       <Grid container spacing={2} sx={{backgroundColor: '#483434', padding: '20px'}}>
           <Grid item xs={4}>
