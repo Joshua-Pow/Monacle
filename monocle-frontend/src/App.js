@@ -144,7 +144,7 @@ function App() {
 
       {done ? <Result dataCollected={dataCollected} purposeOfData={purposeOfData} highlights={highlights} /> : null}
 
-      <Grid container sx={{backgroundColor: '#483434', padding: '20px'}}>
+      <Grid container spacing={2} sx={{backgroundColor: '#483434', padding: '20px'}}>
           <Grid item xs={4}>
             <h1 className="whiteText">What is Monocle?</h1>
           </Grid>
@@ -153,7 +153,7 @@ function App() {
             Ever wonder what you agree to in those privacy policies you don't read? <br/>
             Monocle reduces these lengthly documents down the the most important information about the safety and privacy of your data.
             Simply link the privacy policy website, or upload a PDF and we will scan it and give you a summary of the most important parts of the policy that you should know.
-            We focus on showing information such as what data they collect, purpose of data being collected, how it is stored and affliated companies who have access to the data.
+            We focus on showing information such as what data they collect, purpose of data being collected, how it is stored and affiliated companies who have access to the data.
           </h4>
         </Grid>
       </Grid>
@@ -166,7 +166,7 @@ function App() {
           <h4 className="whiteText">
             For Monocle, we have built an algorithm to parse the text of the policy privacy. 
             The algorithm looks for specific keywords and pulls out the sentence based on if we think it is important enough for the user.
-            To get the text, if a link is provided, we scrap the website and pull the text. If a PDF is provided, we parse the pdf file for the text.
+            To get the text, if a link is provided, we scrape the website and pull the text. If a PDF is provided, we parse the pdf file for the text.
             Once we get the text, we run all the text through our algorithm to determine the key parts of the policy.
           </h4>
         </Grid>
