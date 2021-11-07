@@ -2,7 +2,7 @@ from fuzzywuzzy import process
 
 dataKeywords = ['Name', 'Credit Card', 'Payment Method', 'Location', 'Age', 'Address', 'Picture', 'School', 'Website', 'Cookie', 'IP', 'Payment Information', 'Financial Data']
 
-def parse(text):
+def dataCollected(text):
     doc = []
     results = []
 
@@ -19,3 +19,19 @@ def parse(text):
 
     return results
 
+# This function will extract the sentences from the text with key words in them.
+
+def highlights(text, keywords):
+    '''
+    keywords: a list of strings
+    text: a long string
+    '''
+    keywords = dataKeywords
+    sentences = text.split(".")
+    result = []
+    for sentences in sentences:
+        for keyword in keywords:
+            #ignore case
+            if keyword.lower() in sentences.lower():
+                result.append(sentences)
+    return result

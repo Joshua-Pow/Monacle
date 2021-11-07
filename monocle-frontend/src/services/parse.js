@@ -30,6 +30,7 @@ export const parsePDF = async (pdf) => {
             "url": pdf
           }
         });
+        console.log(response.data);
         return response.data;
     }
     catch (err){

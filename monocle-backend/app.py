@@ -4,7 +4,8 @@ from flask import Flask, request
 from flask_cors import CORS
 from Helpers.PDFParser import extract_text
 from Helpers.linkParser import getText
-from Helpers.parser import parse
+from Helpers.parser import dataCollected, highlights
+
 
 app = Flask(__name__)
 CORS(app)
@@ -16,16 +17,22 @@ def parseLink():
     Body data must be JSON formatted with url key
     param url: url to be parsed
     Example: {"url": "https://www.apple.com/legal/privacy/en-ww/"}
+    Returns: {"Data Collected": Words of collected data,
+              "How Data is used": ~~~,
+              "Data retention": ~~~,
+              "Data discolsure": ~~~,
+              "Data acess": ~~~,
+              "Data highlights: Sentences that have important keywords"}
+              }
     '''
     linkUrl = request.headers.get('url')
 
-    data = []
+    data = {}
 
     text = getText(linkUrl)
-    collected = parse(text)
 
-    data.append(collected)
-
+    data['Data Collected'] = dataCollected(text)
+    data['Highlights'] = highlights(text, [])
     return jsonify(data)
 
 @app.route('/pdf')
