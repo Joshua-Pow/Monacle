@@ -37,12 +37,8 @@ def highlights(text, keywords):
             if sentence not in result:
                 for keyword in keywords:
                     if sentence not in result:
-                        #check if keyword and word are the exact same string
+                        #check if keyword is the same as the word
                         if keyword.lower() == word.lower():
                             result.append(sentence)
                             #go to next sentence
     return result
-
-text="com\nCancel\nApple\nStore\nMac\niPad\niPhone\nWatch\nAirPods\nTV & Home\nOnly on Apple\nAccessories\nSupport\nShopping Bag\n+\nCancel\nPrivacy\nLocal Nav Open Menu\nLocal Nav Close Menu\nOverview\nFeatures\nControl\nLabels\nTransparency Report\nPrivacy Policy\nEnglish\nChoose your preferred language\nApple Privacy Policy\nUpdated October 27, 2021\nApple’s Privacy Policy describes how Apple collects, uses, and shares your personal data"
-keyword="apple"
-print(highlights(text, keyword))
