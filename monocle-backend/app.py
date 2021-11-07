@@ -36,8 +36,6 @@ def parsePDF():
     Example: {"url": "http://www.africau.edu/images/default/sample.pdf"}
     '''
     pdfUrl = request.headers.get('url')
-    #PDFUrl = "https://firebasestorage.googleapis.com/v0/b/monocle-552fc.appspot.com/o/" + PDFUrl + "?alt=" + request.args.get("alt") + "&token=" + request.args.get("token")
-    #PDFUrl = "http://www.africau.edu/images/default/sample.pdf"
     r = requests.get(pdfUrl, stream=True)
     if r.status_code == 200:
         text = extract_text("temp.pdf")
