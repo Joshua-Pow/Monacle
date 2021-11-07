@@ -1,9 +1,9 @@
-import { Card, Container, Grid, List } from '@mui/material';
+import { Card, Container, Grid, List, ListItemText } from '@mui/material';
 import InfoCard from './InfoCard'
 import React from 'react';
 import './Result.css';
 
-export default function Result({ dataCollected, purposeOfData, highlights }) {
+export default function Result({ results }) {
   const testList = ['Name', 'Credit Card', 'Payment Method', 'Location', 'Age', 'Address', 'address', 'Picture', 'School', 'Website', 'Cookie', 'IP', 'Payment Information', 'Financial Data'];
 
   //create a function to see if the word is in the testList array ignoring case and removing punctuation
@@ -11,6 +11,8 @@ export default function Result({ dataCollected, purposeOfData, highlights }) {
     let wordNoPunctuation = word.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
     let wordNoPunctuationLower = wordNoPunctuation.toLowerCase();
     let testListLower = testList.map(word => word.toLowerCase());
+    
+    console.log(wordNoPunctuationLower);
     return testListLower.includes(wordNoPunctuationLower);
   }
 
@@ -56,7 +58,7 @@ export default function Result({ dataCollected, purposeOfData, highlights }) {
         <p>More detailed snippets of the policy we believe are important.</p>
         <Card sx={{padding: '10px'}}>
           <List className="highlights">
-            {highlights.map((highlight, index) => (
+            {results["Highlights"].map((highlight, index) => (
               <ListItemText sx={{backgroundColor: (index%2) ? '#eeeeee' : '#FFFFFF'}} key={index}>{highlightKeywords(highlight)}</ListItemText>
             ))}
           </List>
