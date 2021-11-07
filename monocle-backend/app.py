@@ -19,6 +19,8 @@ dataCollectedKey = ['Name', 'Credit Card', 'Payment Method', 'Location', 'Age', 
 useKey = ['Processing', 'Verification', 'Marketing', 'Analytics', 'Personalization', 'Recommendations', 'Legal Compliance', 'Advertising', 'Ads', 'Advertisment']
 disclosureKey = ['Third Party Advertisers', 'Cloud Computing', 'Warrant', 'Government']
 dataRightsKey = ['Access', 'Correction', 'Deletion', 'Withdraw Consent']
+#concatenate all the previous lists into one list
+highlightsKey = dataCollectedKey + useKey + disclosureKey + dataRightsKey
 
 @app.route('/link')
 def parseLink():
@@ -44,7 +46,7 @@ def parseLink():
     data['Data Used'] = keywordSearch(text, useKey)
     data['Disclosure'] = keywordSearch(text, disclosureKey)
     data['Data Rights'] = keywordSearch(text, dataRightsKey)
-    data['Highlights'] = highlights(text, [])
+    data['Highlights'] = highlights(text, highlightsKey)
     return jsonify(data)
 
 @app.route('/pdf')
@@ -63,7 +65,7 @@ def parsePDF():
         data['Data Used'] = keywordSearch(text, useKey)
         data['Disclosure'] = keywordSearch(text, disclosureKey)
         data['Data Rights'] = keywordSearch(text, dataRightsKey)
-        data['Highlights'] = highlights(text, [])
+        data['Highlights'] = highlights(text, highlightsKey)
         return jsonify(data)
     else:
         return "ERROR: Response " + str(r.status_code)
